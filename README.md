@@ -3,6 +3,16 @@
 
 Website for [iBurnApp.com](http://iburnapp.com). Uses [Jekyll](http://jekyllrb.com) and hosted by [GitHub Pages](https://pages.github.com). Landing Page Template from [Start Bootstrap](http://startbootstrap.com/template-overviews/landing-page/).
 
+# Developing
+
+Install jekyll:
+	
+	$ gem install jekyll
+
+Serve the page:
+
+	$ jekyll serve
+
 # Author
 
 [@chrisballinger](https://github.com/chrisballinger)

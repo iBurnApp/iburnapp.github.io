@@ -11,32 +11,7 @@
     <!-- Header -->
     <div class="intro-header">
 
-        <div class="container">
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="intro-message">
-                        <h1>iBurn 2015</h1>
-                        <h4>Offline Map, Camps, Art and Events for Burning Man</h4>
-                        <h3>iBurn will be back for 2015!<br>
-                        Follow us on <a href="https://twitter.com/iburnapp">Twitter</a> or <a href="https://facebook.com/iburnapp">Facebook</a> for updates.</h3>
-                        <hr class="intro-divider">
-                        <ul class="list-inline app-download-buttons">
-                            <li>
-                                <a href="https://itunes.apple.com/us/app/iburn-2014-offline-burning/id388169740"><img src="img/appstore.svg" height="40px" alt="iBurn on iOS App Store"></a>
-                            </li>
-                            <li>
-                                <a href="https://play.google.com/store/apps/details?id=com.gaiagps.iburn"><img src="img/playstore.svg" height="45px" alt="iBurn for Android on Google Play"></a>
-                            </li>
-                        </ul>
-                        <hr class="intro-divider">
-                        {% include social_buttons.html list_class="intro-social-buttons" %}
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <!-- /.container -->
+        {% include intro_header.html %}    
 
     </div>
     <!-- /.intro-header -->
@@ -51,8 +26,12 @@
                 <div class="col-lg-5 col-sm-6">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading">Offline Map</h2>
-                    <p class="lead">Search the map to find anything at Burning Man, or use compass mode to guide yourself around the playa.<br><br>We <a href="https://github.com/burning-man-earth/iburn-maps">make our own map tiles</a> using TileMill.</p>
+                    <h2 class="section-heading">Accurate Offline Map</h2>
+                    <p class="lead">Navigate all 3,600 acres of Playa with confidence.<br> <small>(Hey Art Boats : That's 4.27 Square Nautical Miles)</small></p>
+
+                    <p class="lead">Find every Toilet, Ranger Station and Medical area. Just in case.</p>
+
+                    <p>Psst! We make <a href="https://github.com/burning-man-earth/iburn-maps">our own map tiles</a> and we love to share.</p>
                 </div>
                 <div class="col-lg-5 col-lg-offset-2 col-sm-6">
                     <img class="img-responsive" src="img/ipad.png" alt="">
@@ -73,19 +52,19 @@
                 <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading">Browse Events Near You</h2>
-                    <p class="lead">An intuitive new interface to what's happening at Burning Man, built with love for 2015.</p>
-                    <ul class="features-list">
-                        <li>Easily search for anything by name.</li>
-                        <li>Browse for events near you.</li>
-                        <li>Filter events by category and expiration.</li>
-                        <li>Add anything to your favorites by swiping right. (long-press on Android)</li>
-                        <li>Quickly see how long it takes to walk anywhere.</li>
-                        <li>Colorful cues to warn you if an event is ending soon.</li>
-                    <ul>
+                    <h2 class="section-heading">Intelligent Event Guide</h2>
+
+                    <p class="lead">Know (almost) everything that's happening around you.</p>
+
+                    <p class="lead">Swifly navigate Black Rock City's 2,300 events by date, type and place.</p>
+
+                    <p class="lead">Find walk and bike times to anywhere. Mutant Vehicle Mass Transit Directions coming soon ;)</p>
+
+                    <p class="lead">Mark your favorites and never forget about that Bacon Breakfast.</p>
+                    
                 </div>
                 <div class="col-lg-5 col-sm-pull-6  col-sm-6">
-                    <img class="img-responsive" src="img/events-screen.png" alt="">
+                    <img class="img-responsive" src="img/events-screen-android.png" alt="">
                 </div>
             </div>
 
@@ -117,36 +96,7 @@
     </div>
     <!-- /.content-section-a -->
 
-    <div class="banner">
-
-        <div class="container">
-
-            <div class="row">
-                <div class="col-lg-6">
-                    <h2>Help us improve iBurn:</h2>
-                </div>
-                <div class="col-lg-6">
-                    {% include social_buttons.html list_class="banner-social-buttons" %}
-                </div>
-            </div>
-
-        </div>
-        <!-- /.container -->
-
-    </div>
-    <!-- /.banner -->
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <p class="copyright text-muted small">Copyright &copy; <a href="https://github.com/chrisballinger">Chris Ballinger</a> 2015. <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.<br>
-                    Header image by <a href="https://www.flickr.com/photos/stuckincustoms/6960953088/">Trey Ratcliff</a>. Template from <a href="http://startbootstrap.com">Start Bootstrap</a>. <a href="/privacy">Privacy Policy.</a></p>
-                </div>
-            </div>
-        </div>
-    </footer>
+    {% include banner_footer.html %}
 
     <!-- jQuery Version 1.11.0 -->
     <script src="js/jquery-1.11.0.js"></script>

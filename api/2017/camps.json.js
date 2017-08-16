@@ -2464,7 +2464,16 @@
             "string": "5:45 & Rods Road",
             "gps_longitude": -119.21568995116566,
             "gps_latitude": 40.77933581736501
-        }
+        },
+         "location": {
+            "string": "7:00 & D",
+            "frontage": "7:00",
+            "intersection": "D",
+            "intersection_type": "&",
+            "gps_latitude": 40.78380349492602,
+            "gps_longitude": -119.21929438883451
+        },
+        "location_string": "7:00 & D"
     },
     {
         "uid": "a1X0V000003H59yUAC",

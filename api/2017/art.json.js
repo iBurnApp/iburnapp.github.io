@@ -6112,15 +6112,6 @@
         "donation_link": null,
         "guided_tours": 0,
         "self_guided_tour_map": 0,
-        "location": {
-            "string": "5:45 900', Open Playa",
-            "hour": 5,
-            "minute": 45,
-            "distance": 900,
-            "category": "Open Playa",
-            "gps_latitude": 40.784442253215,
-            "gps_longitude": -119.208476587223
-        },
         "images": [
             {
                 "gallery_ref": 0,

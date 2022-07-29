@@ -7,11 +7,11 @@ Website for [iBurnApp.com](http://iburnapp.com). Uses [Jekyll](http://jekyllrb.c
 
 Install jekyll:
 	
-	$ gem install jekyll
+	$ bundle install
 
 Serve the page:
 
-	$ jekyll serve
+	$ bundle exec jekyll serve
 
 # Author
 

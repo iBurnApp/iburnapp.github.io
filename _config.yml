@@ -1,10 +1,9 @@
 # Site settings
-title: "iBurn 2024 - Burning Man iOS and Android Apps for Offline Maps, Camps, Art and Events"
+title: "iBurn 2025 - Burning Man iOS and Android Apps for Offline Maps, Camps, Art and Events"
 email: hello@iburnapp.com
 description: "iOS and Android apps for offline Burning Man Map, Camps, Art and Events"
 baseurl: ""
 url: "https://iburnapp.com"
-twitter_username: iBurnApp
 facebook_page: iBurnApp
 github_username:  iBurnApp
 google_analytics_id: UA-28188864-5

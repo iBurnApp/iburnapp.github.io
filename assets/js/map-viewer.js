@@ -7,6 +7,10 @@ class MapViewer {
     }
     
     async initialize(centerLat, centerLng, markerTitle) {
+        return this.initializeWithZoom(centerLat, centerLng, markerTitle, 14);
+    }
+    
+    async initializeWithZoom(centerLat, centerLng, markerTitle, zoom) {
         try {
             // Register PMTiles protocol
             let protocol = new pmtiles.Protocol();
@@ -31,7 +35,7 @@ class MapViewer {
                 container: this.containerId,
                 style: style,
                 center: [centerLng, centerLat],
-                zoom: 14,
+                zoom: zoom,
                 attributionControl: false
             });
             
@@ -43,11 +47,13 @@ class MapViewer {
                 await this.loadPinImages();
             });
             
-            // Add marker
-            new maplibregl.Marker({ color: '#ff0000' })
-                .setLngLat([centerLng, centerLat])
-                .setPopup(new maplibregl.Popup().setHTML(`<b>${markerTitle}</b>`))
-                .addTo(this.map);
+            // Add marker only if markerTitle is provided
+            if (markerTitle) {
+                new maplibregl.Marker({ color: '#ff0000' })
+                    .setLngLat([centerLng, centerLat])
+                    .setPopup(new maplibregl.Popup().setHTML(`<b>${markerTitle}</b>`))
+                    .addTo(this.map);
+            }
             
             // Handle map errors
             this.map.on('error', (e) => {
@@ -110,11 +116,13 @@ class MapViewer {
                 });
             });
             
-            // Add marker
-            new maplibregl.Marker({ color: '#ff0000' })
-                .setLngLat([centerLng, centerLat])
-                .setPopup(new maplibregl.Popup().setHTML(`<b>${markerTitle}</b>`))
-                .addTo(this.map);
+            // Add marker only if markerTitle is provided
+            if (markerTitle) {
+                new maplibregl.Marker({ color: '#ff0000' })
+                    .setLngLat([centerLng, centerLat])
+                    .setPopup(new maplibregl.Popup().setHTML(`<b>${markerTitle}</b>`))
+                    .addTo(this.map);
+            }
                 
         } catch (fallbackError) {
             console.error('Fallback map also failed:', fallbackError);

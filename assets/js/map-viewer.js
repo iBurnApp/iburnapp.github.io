@@ -12,38 +12,17 @@ class MapViewer {
             let protocol = new pmtiles.Protocol();
             maplibregl.addProtocol('pmtiles', protocol.tile);
             
-            // Initialize map with simple style for Burning Man
+            // Load the style JSON
+            const styleUrl = `/data/${this.year}/map/styles/iburn-light.json`;
+            const styleResponse = await fetch(styleUrl);
+            const style = await styleResponse.json();
+            
+            // Initialize map with iBurn vector style
             this.map = new maplibregl.Map({
                 container: this.containerId,
-                style: {
-                    version: 8,
-                    sources: {
-                        'brc-tiles': {
-                            type: 'raster',
-                            tiles: [`pmtiles://${window.location.origin}/data/${this.year}/map/map-${this.year}.pmtiles/{z}/{x}/{y}`],
-                            tileSize: 256,
-                            attribution: 'iBurn Map Data'
-                        }
-                    },
-                    layers: [
-                        {
-                            id: 'background',
-                            type: 'background',
-                            paint: {
-                                'background-color': '#f5e6d3' // Playa dust color
-                            }
-                        },
-                        {
-                            id: 'brc-map',
-                            type: 'raster',
-                            source: 'brc-tiles',
-                            minzoom: 0,
-                            maxzoom: 22
-                        }
-                    ]
-                },
+                style: style,
                 center: [centerLng, centerLat],
-                zoom: 15,
+                zoom: 14,
                 attributionControl: false
             });
             
@@ -83,13 +62,13 @@ class MapViewer {
                             id: 'background',
                             type: 'background',
                             paint: {
-                                'background-color': '#f5e6d3'
+                                'background-color': '#E8E0D8' // Playa dust color from iBurn
                             }
                         }
                     ]
                 },
                 center: [centerLng, centerLat],
-                zoom: 15,
+                zoom: 14,
                 attributionControl: false
             });
             

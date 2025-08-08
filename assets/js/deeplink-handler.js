@@ -33,11 +33,8 @@
             // Update page metadata
             this.updatePageMeta();
             
-            // Attempt deep link
-            this.attemptDeepLink();
-            
-            // Setup fallback UI
-            setTimeout(() => this.showFallback(), DEEP_LINK_TIMEOUT);
+            // Show content immediately
+            this.showContent();
             
             // Setup event handlers
             this.setupEventHandlers();
@@ -119,11 +116,7 @@
             return `intent://${deepLink.replace('iburn://', '')}#Intent;scheme=iburn;package=com.iburnapp.iburn3;S.browser_fallback_url=${encodeURIComponent(window.location.href)};end`;
         }
         
-        showFallback() {
-            // Hide loading, show content
-            document.getElementById('loading-state').style.display = 'none';
-            document.getElementById('content-preview').style.display = 'block';
-            
+        showContent() {
             // Populate content
             this.populateContent();
             

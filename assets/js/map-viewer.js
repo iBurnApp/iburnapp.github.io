@@ -17,6 +17,15 @@ class MapViewer {
             const styleResponse = await fetch(styleUrl);
             const style = await styleResponse.json();
             
+            // Remove sprite reference since we'll load images directly
+            delete style.sprite;
+            
+            // Fix relative URLs for glyphs based on current location
+            const baseUrl = window.location.origin;
+            if (style.glyphs && !style.glyphs.startsWith('http')) {
+                style.glyphs = baseUrl + style.glyphs;
+            }
+            
             // Initialize map with iBurn vector style
             this.map = new maplibregl.Map({
                 container: this.containerId,
@@ -28,6 +37,11 @@ class MapViewer {
             
             // Add navigation controls
             this.map.addControl(new maplibregl.NavigationControl(), 'top-right');
+            
+            // Load pin images when map is ready
+            this.map.on('load', async () => {
+                await this.loadPinImages();
+            });
             
             // Add marker
             new maplibregl.Marker({ color: '#ff0000' })
@@ -107,5 +121,94 @@ class MapViewer {
             // Hide map if it completely fails
             document.getElementById('map-container').style.display = 'none';
         }
+    }
+    
+    async loadPinImages() {
+        // Map the exact pin names from iOS code
+        const imageMap = {
+            'Airport': 'airport',
+            'Rampart': 'EmergencyClinic',
+            'Center Camp Plaza': 'centerCamp',
+            'center': 'center',
+            'Burner Express Bus Depot': 'bus',
+            'Station 3': 'firstAid',
+            'Station 9': 'firstAid',
+            'Playa Info': 'info',
+            'Ranger Station Berlin': 'ranger',
+            'Ranger Station Tokyo': 'ranger',
+            'Ranger HQ': 'ranger',
+            'Ice Nine Arctica': 'ice',
+            'Arctica Center Camp': 'ice',
+            'Ice Cubed Arctica 3': 'ice',
+            'The Temple': 'temple',
+            'toilet': 'toilet',
+            'Artery': 'artery',
+            'Yellow Bike Project': 'bike',
+            'Hell Station': 'fuel',
+            'Census Checkpoint': 'census',
+            'BLM LE Substation': 'police',
+            'Gate Actual': 'gate',
+            'Box Office': 'boxOffice',
+            'Greeters': 'greeters',
+            // Additional common variations
+            'The Man': 'center',
+            'Temple': 'temple',
+            'Center Camp': 'centerCamp',
+            'First Aid': 'firstAid',
+            'Medical': 'EmergencyClinic',
+            'Emergency Clinic': 'EmergencyClinic',
+            'Ice': 'ice',
+            'Rangers': 'ranger',
+            'Recycle': 'recycle',
+            'Burner Express': 'bus'
+        };
+        
+        const targetSize = 40; // Target size in pixels (higher for better quality, will be scaled by MapLibre)
+        const loadedImages = {}; // Cache loaded images
+        
+        for (const [name, imageName] of Object.entries(imageMap)) {
+            try {
+                // Check if we already loaded this image file
+                let image;
+                if (loadedImages[imageName]) {
+                    image = loadedImages[imageName];
+                } else {
+                    image = await this.loadImage(`/assets/images/pins/${imageName}.png`, targetSize);
+                    loadedImages[imageName] = image;
+                }
+                
+                if (image && !this.map.hasImage(name)) {
+                    this.map.addImage(name, image);
+                }
+            } catch (error) {
+                console.warn(`Failed to load pin image ${name} (${imageName}):`, error);
+            }
+        }
+    }
+    
+    loadImage(url, targetSize = 30) {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = () => {
+                // Scale image to target size
+                const scale = targetSize / Math.max(img.width, img.height);
+                const width = Math.round(img.width * scale);
+                const height = Math.round(img.height * scale);
+                
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+                const context = canvas.getContext('2d');
+                context.drawImage(img, 0, 0, width, height);
+                const imageData = context.getImageData(0, 0, width, height);
+                resolve({
+                    width: width,
+                    height: height,
+                    data: new Uint8Array(imageData.data)
+                });
+            };
+            img.onerror = reject;
+            img.src = url;
+        });
     }
 }

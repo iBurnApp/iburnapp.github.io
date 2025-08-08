@@ -16,7 +16,6 @@
     "composite": {"url": "pmtiles:///data/2025/map/map-2025.pmtiles", "type": "vector"}
   },
   "glyphs": "/data/2025/map/glyphs/{fontstack}/{range}.pbf",
-  "sprite": "/data/2025/map/sprites/sprite",
   "layers": [
     {
       "id": "background",
@@ -93,25 +92,6 @@
       }
     },
     {
-        "id": "toilet-icon",
-        "type": "symbol",
-        "source": "composite",
-        "source-layer": "toilets",
-        "minzoom": 15,
-        "layout": {
-          "icon-image": "toilet",
-          "icon-allow-overlap": true,
-          "icon-ignore-placement": true,
-          "icon-size": {
-            "base": 1,
-            "stops": [[0, 0.20], [13, 0.25], [15, 0.5], [22, 1]]
-          }
-        },
-        "paint": {
-            "icon-opacity": 0.8
-        }
-    },
-    {
       "id": "points",
       "type": "symbol",
       "source": "composite",
@@ -123,7 +103,7 @@
         "icon-ignore-placement": true,
         "icon-size": {
           "base": 1,
-          "stops": [[0, 1], [13, 1], [15, 1.5], [22, 1.5]]
+          "stops": [[0, 0.3], [13, 0.4], [15, 0.5], [22, 0.7]]
         },
         "text-field": "{NAME}",
         "text-font": ["Open Sans Regular"],
@@ -155,7 +135,7 @@
         "icon-image": "center",
         "icon-allow-overlap": true,
         "icon-ignore-placement": true,
-        "icon-size": {"base": 1.76, "stops": [[13, 0.02], [22, 6]]},
+        "icon-size": {"base": 1.76, "stops": [[13, 0.5], [15, 0.8], [22, 2]]},
         "text-font": ["Open Sans Regular"]
       },
       "paint": {}

@@ -1,0 +1,19 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "TEAMID.com.iburnapp.iburn",
+        "paths": [
+          "/art/*",
+          "/camp/*", 
+          "/event/*",
+          "/pin"
+        ]
+      }
+    ]
+  },
+  "webcredentials": {
+    "apps": ["TEAMID.com.iburnapp.iburn"]
+  }
+}

@@ -11,3 +11,21 @@ google_analytics_id: UA-28188864-5
 # Build settings
 markdown: kramdown
 permalink: pretty
+
+# Include dotfiles (for .well-known)
+include:
+  - .well-known
+
+# Keep PMTiles files during build
+keep_files:
+  - data/2025/map
+  - data/2024/map
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - LICENSE
+  - .git
+  - .gitignore

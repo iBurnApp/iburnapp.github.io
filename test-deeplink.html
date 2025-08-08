@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Deep Link Test</title>
+</head>
+<body>
+    <h1>Deep Link Test Page</h1>
+    <p>Test the deep link functionality with these examples:</p>
+    
+    <h2>Art Links</h2>
+    <ul>
+        <li><a href="/art/?uid=a1XVI000008yf262AA&title=Test%20Art%20Installation&lat=40.7864&lng=-119.2065&desc=Amazing%20art%20piece&addr=3:00%20%26%20Esplanade">Art with all parameters</a></li>
+        <li><a href="/art/?uid=a1XVI000008yf262AA&title=Simple%20Art">Art with just title</a></li>
+    </ul>
+    
+    <h2>Camp Links</h2>
+    <ul>
+        <li><a href="/camp/?uid=a1XVI000008zNKs2AM&title=Camp%20Mystic&lat=40.7890&lng=-119.2100&desc=A%20magical%20camp&addr=7:30%20%26%20C">Camp with location</a></li>
+    </ul>
+    
+    <h2>Event Links</h2>
+    <ul>
+        <li><a href="/event/?uid=event123&title=Sunrise%20Yoga&start=2025-08-26T06:00&end=2025-08-26T07:30&host=Camp%20Mystic&host_id=a1XVI000008zNKs2AM&host_type=camp&desc=Morning%20yoga%20session">Event with time and host</a></li>
+        <li><a href="/event/?uid=event456&title=All%20Day%20Workshop&all_day=true&host=Center%20Camp">All day event</a></li>
+    </ul>
+    
+    <h2>Pin Links</h2>
+    <ul>
+        <li><a href="/pin/?lat=40.7868&lng=-119.2068&title=Meeting%20Point&desc=Meet%20here%20at%20sunset&color=red">Custom map pin</a></li>
+        <li><a href="/pin/?lat=40.7900&lng=-119.2050&title=Lost%20Bike&addr=4:30%20%26%20K&color=blue">Lost item pin</a></li>
+    </ul>
+    
+    <h2>Direct Deep Links (for testing)</h2>
+    <ul>
+        <li><a href="iburn://art/a1XVI000008yf262AA">Direct iburn:// art link</a></li>
+        <li><a href="iburn://camp/a1XVI000008zNKs2AM">Direct iburn:// camp link</a></li>
+        <li><a href="iburn://pin?lat=40.7868&lng=-119.2068&title=Test%20Pin">Direct iburn:// pin link</a></li>
+    </ul>
+</body>
+</html>

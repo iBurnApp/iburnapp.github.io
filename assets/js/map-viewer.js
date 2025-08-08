@@ -21,10 +21,17 @@ class MapViewer {
             const styleResponse = await fetch(styleUrl);
             const style = await styleResponse.json();
             
-            // Convert PMTiles URL to absolute format for v4.x
+            // Convert PMTiles URL based on environment
             if (style.sources.composite && style.sources.composite.url) {
-                const pmtilesPath = `data/${this.year}/map/map-${this.year}.pmtiles`;
-                style.sources.composite.url = `pmtiles://${location.protocol}//${location.host}/${pmtilesPath}`;
+                const isLocalDev = location.host.includes('localhost') || location.host.includes('127.0.0.1');
+                if (isLocalDev) {
+                    // Use local file for development (avoid CORS issues)
+                    const pmtilesPath = `data/${this.year}/map/map-${this.year}.pmtiles`;
+                    style.sources.composite.url = `pmtiles://${location.protocol}//${location.host}/${pmtilesPath}`;
+                } else {
+                    // Use external hosted PMTiles file (uncorrupted) for production
+                    style.sources.composite.url = `pmtiles://https://iburn-data.iburnapp.com/map-${this.year}.pmtiles`;
+                }
             }
             
             // Remove sprite reference since we'll load images directly

@@ -56,7 +56,7 @@
             
             // Update iOS Smart App Banner
             if (this.uid) {
-                const appArgument = `iburn://${this.type}/${this.uid}`;
+                const appArgument = `iburn://${this.type}?uid=${this.uid}`;
                 document.getElementById('ios-app-banner').content = 
                     `app-id=388169740, app-argument=${appArgument}`;
             }
@@ -69,8 +69,8 @@
                 // Pin uses query parameters
                 deepLink += `pin?${this.params.toString()}`;
             } else if (this.uid) {
-                // Build path with UID
-                deepLink += `${this.type}/${this.uid}`;
+                // Build URL with UID as parameter
+                deepLink += `${this.type}?uid=${this.uid}`;
                 // Add other parameters (excluding uid/id)
                 const otherParams = new URLSearchParams();
                 for (const [key, value] of this.params.entries()) {
@@ -79,7 +79,7 @@
                     }
                 }
                 if (otherParams.toString()) {
-                    deepLink += `?${otherParams.toString()}`;
+                    deepLink += `&${otherParams.toString()}`;
                 }
             }
             

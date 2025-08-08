@@ -21,6 +21,13 @@ class MapViewer {
             const styleResponse = await fetch(styleUrl);
             const style = await styleResponse.json();
             
+            // Fix PMTiles URL for production environment
+            const isLocalDev = location.host.includes('localhost') || location.host.includes('127.0.0.1');
+            if (!isLocalDev && style.sources.composite && style.sources.composite.url.startsWith('pmtiles:///')) {
+                const relativePath = style.sources.composite.url.replace('pmtiles:///', '/');
+                style.sources.composite.url = `pmtiles://${location.protocol}//${location.host}${relativePath}`;
+            }
+            
             // Remove sprite reference since we'll load images directly
             delete style.sprite;
             

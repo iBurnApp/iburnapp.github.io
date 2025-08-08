@@ -13,7 +13,7 @@ class MapViewer {
     async initializeWithZoom(centerLat, centerLng, markerTitle, zoom) {
         try {
             // Register PMTiles protocol
-            let protocol = new pmtiles.Protocol();
+            let protocol = new pmtiles.Protocol({metadata: true});
             maplibregl.addProtocol('pmtiles', protocol.tile);
             
             // Load the style JSON
@@ -21,11 +21,10 @@ class MapViewer {
             const styleResponse = await fetch(styleUrl);
             const style = await styleResponse.json();
             
-            // Fix PMTiles URL for production environment
-            const isLocalDev = location.host.includes('localhost') || location.host.includes('127.0.0.1');
-            if (!isLocalDev && style.sources.composite && style.sources.composite.url.startsWith('pmtiles:///')) {
-                const relativePath = style.sources.composite.url.replace('pmtiles:///', '/');
-                style.sources.composite.url = `pmtiles://${location.protocol}//${location.host}${relativePath}`;
+            // Convert PMTiles URL to absolute format for v4.x
+            if (style.sources.composite && style.sources.composite.url) {
+                const pmtilesPath = `data/${this.year}/map/map-${this.year}.pmtiles`;
+                style.sources.composite.url = `pmtiles://${location.protocol}//${location.host}/${pmtilesPath}`;
             }
             
             // Remove sprite reference since we'll load images directly

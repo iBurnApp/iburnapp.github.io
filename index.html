@@ -103,6 +103,23 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+    
+    <!-- Map Libraries -->
+    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+    <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+    <script src="https://unpkg.com/pmtiles@3.0.7/dist/pmtiles.js"></script>
+    
+    <!-- Map JavaScript -->
+    <script src="/assets/js/map-viewer.js"></script>
+    
+    <script>
+        // Initialize the intro map when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Center on The Man at Black Rock City without a pin, zoomed out more
+            const mapViewer = new MapViewer('intro-map-container', '2025');
+            mapViewer.initializeWithZoom(40.786958, -119.202994, null, 13);
+        });
+    </script>
 
 </body>
 

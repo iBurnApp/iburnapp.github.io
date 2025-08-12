@@ -174,6 +174,24 @@
             }
         }
         
+        parseEventDate(dateString) {
+            // Handle compact ISO format: 20250824T07:00:00
+            // Convert to proper ISO format: 2025-08-24T07:00:00Z (UTC)
+            if (dateString && dateString.length === 17) {
+                // Format: YYYYMMDDTHH:mm:ss (in UTC)
+                const year = dateString.substring(0, 4);
+                const month = dateString.substring(4, 6);
+                const day = dateString.substring(6, 8);
+                const time = dateString.substring(9);
+                
+                // Construct proper ISO string with Z suffix for UTC
+                // The times from the app are already in UTC
+                dateString = `${year}-${month}-${day}T${time}Z`;
+            }
+            
+            return new Date(dateString);
+        }
+        
         formatEventTime() {
             const options = { 
                 weekday: 'short', 
@@ -189,19 +207,23 @@
             
             let timeText = '';
             if (this.metadata.start) {
-                const startDate = new Date(this.metadata.start);
-                timeText = startDate.toLocaleString('en-US', options);
+                const startDate = this.parseEventDate(this.metadata.start);
+                if (!isNaN(startDate.getTime())) {
+                    timeText = startDate.toLocaleString('en-US', options);
+                }
             }
             
             if (this.metadata.end) {
-                const endDate = new Date(this.metadata.end);
-                timeText += ' - ' + endDate.toLocaleTimeString('en-US', { 
-                    hour: 'numeric', 
-                    minute: '2-digit' 
-                });
+                const endDate = this.parseEventDate(this.metadata.end);
+                if (!isNaN(endDate.getTime())) {
+                    timeText += ' - ' + endDate.toLocaleTimeString('en-US', { 
+                        hour: 'numeric', 
+                        minute: '2-digit' 
+                    });
+                }
             }
             
-            return timeText;
+            return timeText || 'Time TBD';
         }
         
         loadImage() {

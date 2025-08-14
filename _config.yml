@@ -6,7 +6,8 @@ baseurl: ""
 url: "https://iburnapp.com"
 facebook_page: iBurnApp
 github_username:  iBurnApp
-google_analytics_id: UA-28188864-5
+# google_analytics_id: UA-28188864-5  # Deprecated Universal Analytics
+ga4_measurement_id: G-ZLVZDERWKR
 
 # Build settings
 markdown: kramdown

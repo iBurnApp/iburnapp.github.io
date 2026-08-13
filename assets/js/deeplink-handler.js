@@ -4,6 +4,8 @@
     
     const DEEP_LINK_TIMEOUT = 2500; // ms to wait before showing fallback
     const BRC_CENTER = { lat: 40.7864, lng: -119.2065 }; // The Man
+    const CURRENT_PLAYA_YEAR = '2026'; // used when a link omits ?year=
+    const LOCATION_PARAMS = ['lat', 'lng', 'addr'];
     
     class DeepLinkHandler {
         constructor() {
@@ -11,8 +13,11 @@
             this.params = new URLSearchParams(window.location.search);
             this.uid = this.extractUid();
             this.metadata = this.extractMetadata();
-            this.year = this.params.get('year') || '2025';
-            
+            this.year = this.params.get('year') || CURRENT_PLAYA_YEAR;
+
+            // Strip embargoed location data before anything renders it
+            this.applyLocationEmbargo();
+
             this.init();
         }
         
@@ -29,6 +34,34 @@
             return metadata;
         }
         
+        // The Burning Man organization embargoes placement data until shortly
+        // before (camps) or at (art) gate opening. A share link made by an
+        // unlocked app can carry coordinates early, so drop them here — that
+        // covers the map, the location text and the outgoing iburn:// URL at
+        // once, since everything downstream reads these two collections.
+        applyLocationEmbargo() {
+            if (typeof IBurnEmbargo === 'undefined') {
+                this.locationEmbargo = { allowed: true };
+                return;
+            }
+
+            this.locationEmbargo = IBurnEmbargo.locationGate(
+                this.type,
+                this.metadata.host_type,
+                this.params.get('year'),
+                new Date()
+            );
+
+            if (this.locationEmbargo.allowed) {
+                return;
+            }
+
+            LOCATION_PARAMS.forEach((key) => {
+                delete this.metadata[key];
+                this.params.delete(key);
+            });
+        }
+
         init() {
             // Update page metadata
             this.updatePageMeta();
@@ -145,6 +178,15 @@
             } else if (this.metadata.lat && this.metadata.lng) {
                 document.getElementById('location-text').textContent = 
                     `${parseFloat(this.metadata.lat).toFixed(4)}, ${parseFloat(this.metadata.lng).toFixed(4)}`;
+            } else if (!this.locationEmbargo.allowed) {
+                const location = document.getElementById('content-location');
+                location.classList.add('embargo-notice');
+                const icon = location.querySelector('i');
+                if (icon) {
+                    icon.className = 'fa fa-lock';
+                }
+                document.getElementById('location-text').textContent =
+                    this.locationEmbargo.notice;
             } else {
                 document.getElementById('content-location').style.display = 'none';
             }

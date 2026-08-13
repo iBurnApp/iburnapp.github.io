@@ -57,6 +57,11 @@
     font-size: 14px;
 }
 
+#content-location.embargo-notice {
+    color: #999;
+    font-style: italic;
+}
+
 #event-details p {
     margin: 10px 0;
     color: #666;
